@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<robot name="elite_robot" xmlns:xacro="http://wiki.ros.org/xacro">
+        <xacro:include filename="$(find elite_description)/urdf/ec66_description.xacro"/>   
+        <xacro:include filename="$(find elite_description)/urdf/_d435.urdf.xacro" /> 
+        <xacro:sensor_d435 name="camera" parent="camera_lin"/>
+</robot>

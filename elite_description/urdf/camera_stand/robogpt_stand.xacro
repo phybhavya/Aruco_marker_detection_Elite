@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="robogpt_setup" params="parent *origin">
+
+    <link name="robogpt_setup_link">
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robogpt_description/meshes/camera_stand/robogpt_stand/robogpt_stand.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.79216 0.81961 0.93333 1" />
+        </material>
+
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robogpt_description/meshes/camera_stand/robogpt_stand/robogpt_stand.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+    jss
+    <joint name="robogpt_setup_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent
+        link="${parent}" />
+      <child
+        link="robogpt_setup_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="camera_stand_attach_joint" type="fixed">
+      <!-- <origin xyz="0 0.309 1.53" rpy="0 1.57 0" />  -->  <!-- perceived truth (according to CAD design) -->
+      <origin xyz="0 0.05 1.15" rpy="0 1.57 3.14" /> <!-- ground truth (adjusted manually after syncing pointcloud with robotmodel) -->
+      <parent link="robogpt_setup_link" />
+      <child link="camera_stand_holder_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="camera_stand_holder_link"/>
+    
+
+
+  </xacro:macro>
+</robot>

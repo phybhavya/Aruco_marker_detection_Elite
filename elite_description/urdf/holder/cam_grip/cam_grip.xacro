@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="holder" params="parent ">
+
+    <link name="camera_holder">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robogpt_description/meshes/holder/MOUNT.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robogpt_description/meshes/holder/MOUNT.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="camera_holder_joint" type="fixed">
+      <origin xyz="0.045 -0.045 -0.06" rpy="1.57 0 3.14" />
+      <parent link="${parent}" />
+      <child link="camera_holder" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="camera_holder_link"/>
+
+    <joint name="camera_attach_joint" type="fixed">
+      <origin xyz="0.135 0.0015 0.045" rpy="-1.57 0.0 0" />
+      <parent link="camera_holder" />
+      <child link="camera_holder_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <link name="holder_gripper_link"/>
+
+    <joint name="holder_gripper_joint" type="fixed">
+      <origin xyz="0.125 0.060 0.045" rpy="1.57 0.0 -1.57" />
+      <parent link="camera_holder" />
+      <child link="holder_gripper_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+  </xacro:macro>
+</robot>
