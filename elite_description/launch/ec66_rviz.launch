@@ -1,0 +1,14 @@
+<launch>
+  <arg name="model" />
+  <arg name="js_pub" default="true"/>
+  <!-- <param name="robot_description" command="$(find xacro)/xacro '$(find elite_description)/urdf/ec66_description.xacro'"/> -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find elite_description)/urdf/robot1.xacro'"/>
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find elite_description)/config/urdf.rviz" />
+  <node if="$(arg js_pub)" name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+  <node if="$(eval arg('js_pub') == false)" name="p2_ping" pkg="elite_description" type="p2_ping.py"/>
+  <!-- <node if="$(eval arg('js_pub') == false)" name="p2_ping" pkg="elite_description" type="owl_ping.py"/> -->
+
+</launch>
+
