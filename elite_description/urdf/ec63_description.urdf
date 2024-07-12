@@ -213,4 +213,46 @@
         <parent link="link6" />
         <child link="flan" />
     </joint>
+    <link name="camera_mount">
+    <inertial>
+      <origin xyz="-0.0051042 0.00088494 -0.00052221" rpy="0 0 0" />
+      <mass value="0.010466" />
+      <inertia ixx="0.00061835" ixy="0.00024116" ixz="-6.2654E-05" iyy="1.00441" iyz="1.3293E-05" izz="1.000143" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://elite_description/meshes/ec66/Intel_D435_clamp(1).STL" scale='0.001 0.001 0.001' />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://elite_description/meshes/ec66/Intel_D435_clamp(1).STL" scale='0.001 0.001 0.001' />
+      </geometry>
+    </collision>
+    </link>
+    <joint name="camera_mount_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="1.57 0 0"  />
+      <parent link="flan" />
+      <child link="camera_mount" />
+      <axis xyz="0 0 0" />
+    </joint> 
+
+    <link name="camera_lin">
+    <inertial>
+      <origin xyz="-0.0051042 0.00088494 -0.00052221" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="0.0000061835" ixy="0.0000024116" ixz="-6.2654E-07" iyy="1.00441" iyz="1.3293E-05" izz="1.000143" />
+    </inertial>
+    </link>
+    <joint name="camera_lin" type="fixed">
+      <origin xyz="0.065 0.035 0.00" rpy="-1.57 3.14 0" />
+      <parent link="camera_mount" />
+      <child link="camera_lin" />
+      <axis xyz="0 0 0" />
+    </joint> 
 </robot>
