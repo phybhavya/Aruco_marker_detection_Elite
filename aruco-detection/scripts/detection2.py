@@ -119,13 +119,9 @@ class aruco_detect():
                 oreintation = np.array(oreintation)
                 oreintation = oreintation[0]
                 print(oreintation[0])
-                t_pos_y = pos[2]
-                t_pos_z = pos[1]
                 position = [pos[0],pos[1],pos[2],oreintation[0],oreintation[1],oreintation[2]]
-                # position = [pos[0],t_pos_y,t_pos_z,oreintation[0][0][0],oreintation[0][0][1],oreintation[0][0][2]]
-                self.save_marker_pose(markerID, position,"/home/bhavya/catkin_ws/src/aruco-detection/config/marker_poses.json")#/home/ow-labs/workspaces/robogpt/diff_seek/aruco_detection/config/marker_poses.json")
+                self.save_marker_pose(markerID, position,"/home/bhavya/catkin_ws/src/aruco-detection/config/marker_poses.json")#src/aruco-detection/config/marker_poses.json
                 cv2.imshow('Estimated Pose', image)
-                #tfBuffer = tf2_ros.Buffer()
                 t = TransformStamped()
                 t.header.stamp = rospy.Time.now()
                 t.header.frame_id = 'camera_depth_optical_frame'
@@ -139,7 +135,7 @@ class aruco_detect():
                 # Store the rotation information
                 rotation_matrix = np.eye(4)
                 rotation_matrix[0:3, 0:3] = cv2.Rodrigues(np.array(rvec[0][0]))[0]
-                r = R.from_dcm(rotation_matrix[0:3, 0:3])
+                r = R.from_matrix(rotation_matrix[0:3, 0:3])
                 quat = r.as_quat()   
                 
                 # Quaternion format     
@@ -206,7 +202,6 @@ class aruco_detect():
                 if self.cv_color_image is not None and self.cv_depth_image is not None:
                     cv2.imshow("Color Feed", self.cv_color_image)
                     depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(self.cv_depth_image, alpha=0.03), cv2.COLORMAP_JET)
-                    # cv2.imshow("Depth Feed", depth_colormap)
                     self.detect_aruco(self.cv_color_image,depth_colormap,self.intrinsic_camera,self.distortion)
                 
                 cv2.waitKey(1)
